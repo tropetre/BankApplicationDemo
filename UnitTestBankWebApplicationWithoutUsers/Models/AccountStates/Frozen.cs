@@ -5,16 +5,14 @@ using System.Web;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models.AccountStates
 {
-    public class Active : AccountState
+    public class Frozen : AccountState
     {
         public void Deposit(Action deposit)
         {
-            deposit();
         }
 
         public void Withdraw(Action withdraw)
         {
-            withdraw();
         }
     }
 }

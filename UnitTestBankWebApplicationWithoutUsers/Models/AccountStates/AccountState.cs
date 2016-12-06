@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UnitTestBankWebApplicationWithoutUsers.Models
+namespace UnitTestBankWebApplicationWithoutUsers.Models.AccountStates
 {
-    public interface AccountState.AccountStates
+    public interface AccountState
     {
-        void AddFunds();
-        void RemoveFunds();
+        void Deposit(Action deposit);
+        void Withdraw(Action withdraw);
     }
 }

@@ -8,8 +8,8 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
     public interface Transaction
     {
-        public int Id;
-        public MoneyAmount MoneyAmount;
-        public DateTime Date;
+        int Id { get; set; }
+        MoneyAmount MoneyAmount { get; set; }
+        DateTime Date { get; set; }
     }
 }

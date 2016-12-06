@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnitTestBankWebApplicationWithoutUsers.Models.AccountStates;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
@@ -14,7 +15,12 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
 
         public Account()
         {
-            this.State = AccountState.OpenState;
+            this.State = new Active();
+        }
+
+        public void Withdraw(MoneyAmount amount)
+        {
+            this.State.Withdraw(() => { this.Balance -= amount; } );
         }
     }
 }
