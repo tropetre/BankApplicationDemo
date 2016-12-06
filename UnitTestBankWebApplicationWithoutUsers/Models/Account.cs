@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using UnitTestBankWebApplicationWithoutUsers.Models.AccountStates;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
     public class Account : Entity<int>
     {
+        [Key]
         public int Id { get; set; }
-        public virtual MoneyAmount Balance { get; set; }
+        [Required]
+        public virtual Person Owner { get; set; }
+        public MoneyAmount Balance { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-        public virtual AccountState State { get; set; } = new Active();
+        public AccountState State { get; set; } = new Active();
         
         public void Withdraw(MoneyAmount amount) =>
             this.State.Withdraw(() => 
