@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
-    public class Person
+    public class Person : Entity<string>
     {
         [Key]
         public string Id { get; set; }

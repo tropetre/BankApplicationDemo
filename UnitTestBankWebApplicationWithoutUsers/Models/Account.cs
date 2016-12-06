@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnitTestBankWebApplicationWithoutUsers.Models.AccountStates;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
@@ -9,18 +6,44 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
     public class Account : Entity<int>
     {
         public int Id { get; set; }
-        public MoneyAmount Balance { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public AccountState State { get; set; }
+        public virtual MoneyAmount Balance { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+        public virtual AccountState State { get; set; } = new Active();
+        
+        public void Withdraw(MoneyAmount amount) =>
+            this.State.Withdraw(() => 
+            {
+                this.Balance -= amount;
+                this.Transactions.Add(
+                    new Transaction(amount, TransactionType.Withdrawal));
+            });
 
-        public Account()
-        {
-            this.State = new Active();
-        }
+        public void Deposit(MoneyAmount amount) =>
+            this.State.Deposit(() => 
+            {
+                this.Balance += amount;
+                this.Transactions.Add(
+                    new Transaction(amount, TransactionType.Deposit));
+            });
 
-        public void Withdraw(MoneyAmount amount)
-        {
-            this.State.Withdraw(() => { this.Balance -= amount; } );
-        }
+        public void TransferTo(Account payee, MoneyAmount amount) =>
+            this.State.Withdraw(() =>
+            {
+                this.Balance -= amount;
+                this.Transactions.Add(
+                    new Transaction(amount, TransactionType.Deacquisition));
+
+                payee.Acquire(amount: amount, payor: this);
+            });
+
+        private void Acquire(MoneyAmount amount, Account payor) =>
+            this.State.Deposit(() => 
+            {
+                this.Balance += amount;
+                this.Transactions.Add(
+                    new Transaction(amount, TransactionType.Acquisition));
+            });
+
+        public void Freeze() => this.State = this.State.Freeze();
     }
 }

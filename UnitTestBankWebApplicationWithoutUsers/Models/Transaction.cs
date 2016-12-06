@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
-    public interface Transaction
+    public class Transaction
     {
-        int Id { get; set; }
-        MoneyAmount MoneyAmount { get; set; }
-        DateTime Date { get; set; }
+        public virtual MoneyAmount MoneyAmount { get; }
+        public virtual DateTime Date { get; }
+        public virtual TransactionType Type { get; }
+
+        public Transaction(MoneyAmount amount, TransactionType type)
+        {
+            this.Date = DateTime.Now;
+            this.MoneyAmount = amount;
+            this.Type = type;
+        }
     }
 }

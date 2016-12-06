@@ -128,12 +128,11 @@
     <Compile Include="Models\AccountStates\AccountState.cs" />
     <Compile Include="Models\AccountStates\Frozen.cs" />
     <Compile Include="Models\AccountStates\Active.cs" />
-    <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\CurrencyConversionException.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\MoneyAmount.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\TransactionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

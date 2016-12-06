@@ -5,9 +5,10 @@ using System.Text;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models.AccountStates
 {
-    public interface AccountState
+    public abstract class AccountState
     {
-        void Deposit(Action deposit);
-        void Withdraw(Action withdraw);
+        public abstract void Deposit(Action deposit);
+        public abstract void Withdraw(Action withdraw);
+        public abstract AccountState Freeze();
     }
 }
