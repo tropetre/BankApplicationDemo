@@ -8,6 +8,6 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
         [Key]
         public string Id { get; set; }
         public string FullName { get; set; }
-        public virtual ICollection<Account> Accounts { get; set; }
+        //public virtual ICollection<Account> Accounts { get; set; }
     }
 }

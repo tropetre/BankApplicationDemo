@@ -2,7 +2,7 @@
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models.AccountStates
 {
-    public class Frozen : AccountState
+    public class FrozenAccount : AccountState
     {
         public override void Deposit(Action deposit)    => deposit();
         public override void Withdraw(Action withdraw) { }

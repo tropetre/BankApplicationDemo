@@ -128,8 +128,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountStates\AccountState.cs" />
-    <Compile Include="Models\AccountStates\Frozen.cs" />
-    <Compile Include="Models\AccountStates\Active.cs" />
+    <Compile Include="Models\AccountStates\FrozenAccount.cs" />
+    <Compile Include="Models\AccountStates\ActiveAccount.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\MoneyAmount.cs" />
     <Compile Include="Models\Person.cs" />

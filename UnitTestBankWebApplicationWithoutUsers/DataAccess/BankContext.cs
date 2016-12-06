@@ -14,7 +14,6 @@ namespace UnitTestBankWebApplicationWithoutUsers.DataAccess
 
         }
 
-        public DbSet<Person> People { get; set; }
         public DbSet<Account> Accounts { get; set; }
     }
 }

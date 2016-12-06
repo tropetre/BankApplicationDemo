@@ -12,7 +12,7 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
         public virtual Person Owner { get; set; }
         public MoneyAmount Balance { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-        public AccountState State { get; set; } = new Active();
+        public AccountState State { get; set; } = new ActiveAccount();
         
         public void Withdraw(MoneyAmount amount) =>
             this.State.Withdraw(() => 

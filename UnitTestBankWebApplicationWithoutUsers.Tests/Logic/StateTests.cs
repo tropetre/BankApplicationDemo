@@ -39,7 +39,7 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCanBeDepositToFrozenAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500), State = new Frozen() };
+            var account = new Account { Balance = new MoneyAmount(12500), State = new FrozenAccount() };
 
             // Act
             account.Deposit(new MoneyAmount(1000));
@@ -53,7 +53,7 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCantBeWithdrawnFromFrozenAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500), State = new Frozen() };
+            var account = new Account { Balance = new MoneyAmount(12500), State = new FrozenAccount() };
 
             // Act
             account.Withdraw(new MoneyAmount(1000));
