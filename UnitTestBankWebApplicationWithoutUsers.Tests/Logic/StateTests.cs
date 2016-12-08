@@ -11,13 +11,13 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCanBeDepositToActiveAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
-            account.Deposit(new MoneyAmount(1000));
+            account.Deposit(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(13500);
+            decimal expected = new decimal(13500);
             Assert.AreEqual(expected, account.Balance);
         }
 
@@ -25,13 +25,13 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCanBeWithdrawnFromActiveAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
-            account.Withdraw(new MoneyAmount(1000));
+            account.Withdraw(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(11500);
+            decimal expected = new decimal(11500);
             Assert.AreEqual(expected, account.Balance);
         }
 
@@ -39,13 +39,13 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCanBeDepositToFrozenAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500), State = new FrozenAccount() };
+            var account = new Account { Balance = new decimal(12500), State = AccountStateType.Frozen };
 
             // Act
-            account.Deposit(new MoneyAmount(1000));
+            account.Deposit(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(13500);
+            decimal expected = new decimal(13500);
             Assert.AreEqual(expected, account.Balance);
         }
 
@@ -53,28 +53,66 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void MoneyCantBeWithdrawnFromFrozenAccount()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500), State = new FrozenAccount() };
+            var account = new Account { Balance = new decimal(12500), State = AccountStateType.Frozen };
 
             // Act
-            account.Withdraw(new MoneyAmount(1000));
+            account.Withdraw(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(12500);
+            decimal expected = new decimal(12500);
             Assert.AreEqual(expected, account.Balance);
+        }
+
+        [TestMethod]
+        public void AccountCanBeFrozen()
+        {
+            // Arrange
+            var account = new Account { Balance = new decimal(12500) };
+
+            // Act
+            account.Freeze();
+
+            // Assert
+            Assert.AreEqual(AccountStateType.Frozen, account.State);
+        }
+
+        [TestMethod]
+        public void AccountCanBeInitializedAsFrozen()
+        {
+            // Arrange
+            var account = new Account { Balance = new decimal(12500), State = AccountStateType.Frozen };
+
+            // Act
+
+            // Assert
+            Assert.AreEqual(AccountStateType.Frozen, account.State);
+        }
+
+        [TestMethod]
+        public void AccountRemainsFrozen()
+        {
+            // Arrange
+            var account = new Account { Balance = new decimal(12500), State = AccountStateType.Frozen };
+
+            // Act
+            account.Freeze();
+
+            // Assert
+            Assert.AreEqual(AccountStateType.Frozen, account.State);
         }
 
         [TestMethod]
         public void AccountCanBeFrozenAndMoneyCantBeWithdrawn()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
             account.Freeze();
-            account.Withdraw(new MoneyAmount(1000));
+            account.Withdraw(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(12500);
+            decimal expected = new decimal(12500);
             Assert.AreEqual(expected, account.Balance);
         }
 
@@ -82,14 +120,14 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.States
         public void AccountCanBeFrozenAndMoneyCanBeDeposit()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
             account.Freeze();
-            account.Deposit(new MoneyAmount(1000));
+            account.Deposit(new decimal(1000));
 
             // Assert
-            MoneyAmount expected = new MoneyAmount(13500);
+            decimal expected = new decimal(13500);
             Assert.AreEqual(expected, account.Balance);
         }
     }

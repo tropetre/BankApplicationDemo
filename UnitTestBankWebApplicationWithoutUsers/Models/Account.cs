@@ -1,53 +1,77 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using UnitTestBankWebApplicationWithoutUsers.Models.AccountStates;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Models
 {
+    using AccountStates;
+
     public class Account : Entity<int>
     {
-        [Key]
+        [Key, DisplayName("Account-Id")]
         public int Id { get; set; }
-        [Required]
+
         public virtual Person Owner { get; set; }
-        public MoneyAmount Balance { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
-        public AccountState State { get; set; } = new ActiveAccount();
+
+        [Required, ForeignKey("Owner"), DisplayName("Social Security Number")]
+        public string Owner_Id { get; set; }
+
+        private AccountState _state = StateFactory.GetState(AccountStateType.Active);
         
-        public void Withdraw(MoneyAmount amount) =>
-            this.State.Withdraw(() => 
+        [Required, DisplayName("Account Status")]
+        public AccountStateType State
+        {
+            get
             {
-                this.Balance -= amount;
-                this.Transactions.Add(
+                return _state.GetStateType();
+            }
+            set
+            {
+                _state = StateFactory.GetState(value);
+
+            }
+        }
+
+        [Required]
+        public decimal Balance { get; set; }
+
+        public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+        
+        public void Withdraw(decimal amount) =>
+            _state.Withdraw(() => 
+            {
+                Balance -= amount;
+                Transactions.Add(
                     new Transaction(amount, TransactionType.Withdrawal));
             });
 
-        public void Deposit(MoneyAmount amount) =>
-            this.State.Deposit(() => 
+        public void Deposit(decimal amount) =>
+            _state.Deposit(() => 
             {
-                this.Balance += amount;
-                this.Transactions.Add(
+                Balance += amount;
+                Transactions.Add(
                     new Transaction(amount, TransactionType.Deposit));
             });
 
-        public void TransferTo(Account payee, MoneyAmount amount) =>
-            this.State.Withdraw(() =>
+        public void TransferTo(Account payee, decimal amount) =>
+            _state.Withdraw(() =>
             {
-                this.Balance -= amount;
-                this.Transactions.Add(
+                Balance -= amount;
+                Transactions.Add(
                     new Transaction(amount, TransactionType.Deacquisition));
 
                 payee.Acquire(amount: amount, payor: this);
             });
 
-        private void Acquire(MoneyAmount amount, Account payor) =>
-            this.State.Deposit(() => 
+        private void Acquire(decimal amount, Account payor) =>
+            _state.Deposit(() => 
             {
-                this.Balance += amount;
-                this.Transactions.Add(
+                Balance += amount;
+                Transactions.Add(
                     new Transaction(amount, TransactionType.Acquisition));
             });
 
-        public void Freeze() => this.State = this.State.Freeze();
+        public void Freeze() => _state = _state.Freeze();
     }
 }

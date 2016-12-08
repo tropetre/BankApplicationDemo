@@ -1,31 +1,35 @@
 namespace UnitTestBankWebApplicationWithoutUsers.Migrations
 {
-    using System;
-    using System.Data.Entity;
+    using Models;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using DataAccess;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<UnitTestBankWebApplicationWithoutUsers.DataAccess.BankContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BankContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(UnitTestBankWebApplicationWithoutUsers.DataAccess.BankContext context)
+        protected override void Seed(BankContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.People.AddOrUpdate(
+                p => p.Id,
+                new Person { Id = "840304-8203", FullName = "Andrew Peters" },
+                new Person { Id = "811124-1658", FullName = "Brice Lambson" },
+                new Person { Id = "940505-7569", FullName = "Rowan Miller" }
+            );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var i = 1;
+            context.Accounts.AddOrUpdate(
+                a => a.Id,
+                new Account { Id = i++, Balance = 12500m,  Owner_Id = "840304-8203" },
+                new Account { Id = i++, Balance = 13500m,  Owner_Id = "840304-8203" },
+                new Account { Id = i++, Balance = 12200m,  Owner_Id = "840304-8203" },
+                new Account { Id = i++, Balance = 100m,    Owner_Id = "811124-1658" },
+                new Account { Id = i++, Balance = 322500m, Owner_Id = "811124-1658" },
+                new Account { Id = i++, Balance = 62500m,  Owner_Id = "940505-7569" }
+            );
         }
     }
 }

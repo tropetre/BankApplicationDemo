@@ -120,19 +120,38 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="DataAccess\BankContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612070849287_Initial.cs" />
+    <Compile Include="Migrations\201612070849287_Initial.Designer.cs">
+      <DependentUpon>201612070849287_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612071055126_OwnerForeignKey.cs" />
+    <Compile Include="Migrations\201612071055126_OwnerForeignKey.Designer.cs">
+      <DependentUpon>201612071055126_OwnerForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612071208432_KeyChangesAccountPerson.cs" />
+    <Compile Include="Migrations\201612071208432_KeyChangesAccountPerson.Designer.cs">
+      <DependentUpon>201612071208432_KeyChangesAccountPerson.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081303336_PrivateStates.cs" />
+    <Compile Include="Migrations\201612081303336_PrivateStates.Designer.cs">
+      <DependentUpon>201612081303336_PrivateStates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountStates\AccountState.cs" />
-    <Compile Include="Models\AccountStates\FrozenAccount.cs" />
-    <Compile Include="Models\AccountStates\ActiveAccount.cs" />
+    <Compile Include="Models\AccountStates\FrozenState.cs" />
+    <Compile Include="Models\AccountStates\ActiveState.cs" />
+    <Compile Include="Models\AccountStates\AccountStateType.cs" />
     <Compile Include="Models\Entity.cs" />
-    <Compile Include="Models\MoneyAmount.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\AccountStates\StateFactory.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\TransactionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,8 +196,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+    <Content Include="Views\People\Create.cshtml" />
+    <Content Include="Views\People\Delete.cshtml" />
+    <Content Include="Views\People\Details.cshtml" />
+    <Content Include="Views\People\Edit.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\Accounts\Freeze.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -188,6 +217,21 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612070849287_Initial.resx">
+      <DependentUpon>201612070849287_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612071055126_OwnerForeignKey.resx">
+      <DependentUpon>201612071055126_OwnerForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612071208432_KeyChangesAccountPerson.resx">
+      <DependentUpon>201612071208432_KeyChangesAccountPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081303336_PrivateStates.resx">
+      <DependentUpon>201612081303336_PrivateStates.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTestBankWebApplicationWithoutUsers.Models;
 using System.Collections.Generic;
+using UnitTestBankWebApplicationWithoutUsers.Models.AccountStates;
 
 namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransferTests
 {
@@ -9,54 +10,58 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransferTests
     public class TransferTests
     {
         [TestMethod]
-        public void MoneyIsWithdrawnFromPayerAfterTransfer()
+        public void ActiveAccountsCanTransferMoney()
         {
             // Arrange
             Account payee = new Account
             {
-                Balance = new MoneyAmount(12500),
-                Id = 1,
-                Transactions = new List<Transaction>()
+                Balance = new decimal(12500),
+                Id = 1
             };
 
             Account payor = new Account
             {
-                Balance = new MoneyAmount(12500),
-                Id = 1,
-                Transactions = new List<Transaction>()
+                Balance = new decimal(12500),
+                Id = 2
             };
 
             // Act
-            payor.TransferTo(payee, new MoneyAmount(1000m));
+            payor.TransferTo(payee, new decimal(1000));
 
             // Assert
-            var expected = new MoneyAmount(11500);
+            var expected = new decimal(11500);
             Assert.AreEqual(expected, payor.Balance);
+
+            expected = new decimal(13500);
+            Assert.AreEqual(expected, payee.Balance);
         }
 
         [TestMethod]
-        public void MoneyIsDepositToPayeeAfterTransfer()
+        public void FrozenAccountCanNotTransferMoney()
         {
             // Arrange
             Account payee = new Account
             {
-                Balance = new MoneyAmount(12500),
+                Balance = new decimal(12500),
                 Id = 1,
-                Transactions = new List<Transaction>()
+                State = AccountStateType.Frozen
             };
 
             Account payor = new Account
             {
-                Balance = new MoneyAmount(12500),
-                Id = 1,
-                Transactions = new List<Transaction>()
+                Balance = new decimal(12500),
+                Id = 2,
+                State = AccountStateType.Frozen
             };
 
             // Act
-            payor.TransferTo(payee, new MoneyAmount(1000m));
+            payor.TransferTo(payee, new decimal(1000));
 
             // Assert
-            var expected = new MoneyAmount(13500);
+            var expected = new decimal(12500);
+            Assert.AreEqual(expected, payor.Balance);
+
+            expected = new decimal(12500);
             Assert.AreEqual(expected, payee.Balance);
         }
     }

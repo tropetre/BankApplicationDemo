@@ -11,7 +11,7 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransactionHistory
         public void NewAccountHasNoHistory()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
 
@@ -24,10 +24,10 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransactionHistory
         public void CompletingDepositAddsToHistory()
         {
             // Arrange
-            var account = new Account { Balance = new MoneyAmount(12500) };
+            var account = new Account { Balance = new decimal(12500) };
 
             // Act
-            account.Deposit(new MoneyAmount(1000));
+            account.Deposit(new decimal(1000));
 
             // Assert
             int expected = 1;
@@ -40,11 +40,11 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransactionHistory
             // Arrange
             var account = new Account
             {
-                Balance = new MoneyAmount(12500)
+                Balance = new decimal(12500)
             };
 
             // Act
-            account.Withdraw(new MoneyAmount(1000));
+            account.Withdraw(new decimal(1000));
 
             // Assert
             int expected = 1;
@@ -55,11 +55,11 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransactionHistory
         public void TransactionHistoryIsAddedToBothPartiesAfterTransaction()
         {
             // Arrange
-            Account payee = new Account { Balance = new MoneyAmount(12500) };
-            Account payor = new Account { Balance = new MoneyAmount(12500) };
+            Account payee = new Account { Balance = new decimal(12500) };
+            Account payor = new Account { Balance = new decimal(12500) };
 
             // Act
-            payor.TransferTo(payee, new MoneyAmount(1000m));
+            payor.TransferTo(payee, new decimal(1000));
 
             // Assert
             int expected = 1;
@@ -71,11 +71,11 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransactionHistory
         public void TransactionHistoryIsCorrectInBothPartiesAfterTransaction()
         {
             // Arrange
-            Account payee = new Account { Balance = new MoneyAmount(12500) };
-            Account payor = new Account { Balance = new MoneyAmount(12500) };
+            Account payee = new Account { Balance = new decimal(12500) };
+            Account payor = new Account { Balance = new decimal(12500) };
 
             // Act
-            payor.TransferTo(payee, new MoneyAmount(1000m));
+            payor.TransferTo(payee, new decimal(1000));
 
             // Assert
             var expected = TransactionType.Deacquisition;
