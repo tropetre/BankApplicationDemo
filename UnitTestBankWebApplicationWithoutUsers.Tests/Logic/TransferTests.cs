@@ -29,11 +29,11 @@ namespace UnitTestBankWebApplicationWithoutUsers.Tests.TransferTests
             payor.TransferTo(payee, new decimal(1000));
 
             // Assert
-            var expected = new decimal(11500);
-            Assert.AreEqual(expected, payor.Balance);
+            var payorExpected = new decimal(11500);
+            Assert.AreEqual(payorExpected, payor.Balance);
 
-            expected = new decimal(13500);
-            Assert.AreEqual(expected, payee.Balance);
+            var payeeExpected = new decimal(13500);
+            Assert.AreEqual(payeeExpected, payee.Balance);
         }
 
         [TestMethod]

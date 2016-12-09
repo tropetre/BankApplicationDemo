@@ -10,7 +10,6 @@
     <h4>Account</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.Owner.FullName)
         </dt>
@@ -42,8 +41,29 @@
         <dd>
             @Html.DisplayFor(model => model.Balance)
         </dd>
-
     </dl>
+    <hr />
+    <table class="table table-condensed table-striped">
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+        @foreach (var transaction in Model.Transactions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => transaction.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => transaction.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => transaction.MoneyAmount)
+                </td>
+            </tr>
+        }
+    </table>
 </div>
 <div class="btn-group">
     @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })

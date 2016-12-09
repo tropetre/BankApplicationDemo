@@ -12,13 +12,13 @@ namespace UnitTestBankWebApplicationWithoutUsers.Models
         public decimal MoneyAmount { get; }
 
         [Required]
-        public virtual DateTime Date { get; }
+        public DateTime Date { get; set; }
 
         [Required]
-        public Account Account { get; set; }
+        public virtual Account Account { get; set; }
 
         [Required]
-        public virtual TransactionType Type { get; }
+        public TransactionType Type { get; set; }
 
         public Transaction()
         {

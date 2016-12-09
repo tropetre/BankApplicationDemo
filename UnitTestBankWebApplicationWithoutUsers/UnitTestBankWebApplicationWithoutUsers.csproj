@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
+    <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="DataAccess\BankContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,14 +131,6 @@
     <Compile Include="Migrations\201612070849287_Initial.cs" />
     <Compile Include="Migrations\201612070849287_Initial.Designer.cs">
       <DependentUpon>201612070849287_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612071055126_OwnerForeignKey.cs" />
-    <Compile Include="Migrations\201612071055126_OwnerForeignKey.Designer.cs">
-      <DependentUpon>201612071055126_OwnerForeignKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612071208432_KeyChangesAccountPerson.cs" />
-    <Compile Include="Migrations\201612071208432_KeyChangesAccountPerson.Designer.cs">
-      <DependentUpon>201612071208432_KeyChangesAccountPerson.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201612081303336_PrivateStates.cs" />
     <Compile Include="Migrations\201612081303336_PrivateStates.Designer.cs">
@@ -207,6 +200,7 @@
     <Content Include="Views\People\Edit.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Accounts\Freeze.cshtml" />
+    <Content Include="Views\Accounts\Transaction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -222,12 +216,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612070849287_Initial.resx">
       <DependentUpon>201612070849287_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612071055126_OwnerForeignKey.resx">
-      <DependentUpon>201612071055126_OwnerForeignKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612071208432_KeyChangesAccountPerson.resx">
-      <DependentUpon>201612071208432_KeyChangesAccountPerson.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081303336_PrivateStates.resx">
       <DependentUpon>201612081303336_PrivateStates.cs</DependentUpon>

@@ -6,11 +6,20 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default pull-right" })
+        <div class="btn-group pull-right">
+            @Html.ActionLink("New Account", "Create", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("New Transaction", "Transaction", null, new { @class = "btn btn-primary" })
+        </div>
         <h2>Accounts</h2>
     </div>
     <table class="table">
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                Owner Name
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.State)
             </th>
@@ -24,13 +33,23 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner.FullName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.State)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Balance)
                 </td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default pull-right" })
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Freeze", "Freeze", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </div>
                 </td>
             </tr>
         }

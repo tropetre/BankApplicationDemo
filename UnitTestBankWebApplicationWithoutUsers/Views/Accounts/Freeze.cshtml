@@ -3,16 +3,18 @@
 @{
     ViewBag.Title = "Delete";
 }
+<div class="jumbotron">
+    <h2>Freeze Account</h2>
+    <h3>Are you sure you want to freeze this account?</h3>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<h2>Freeze Account</h2>
+        <div class="form-actions no-color">
+            <input type="submit" value="Freeze" class="btn btn-danger btn-lg" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
 
-<h3>Are you sure you want to freeze this account?</h3>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Freeze" class="btn btn-danger" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-}
+</div>

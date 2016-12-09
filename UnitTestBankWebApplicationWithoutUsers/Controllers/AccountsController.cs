@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Net;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -7,6 +8,7 @@ namespace UnitTestBankWebApplicationWithoutUsers.Controllers
 {
     using DataAccess;
     using Models;
+    using Models.AccountStates;
 
     public class AccountsController : Controller
     {
@@ -150,6 +152,40 @@ namespace UnitTestBankWebApplicationWithoutUsers.Controllers
             db.Entry(account).State = EntityState.Modified;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        // GET: Accounts/Transaction
+        public ActionResult Transaction()
+        {
+            TransactionViewModel transaction = new TransactionViewModel();
+            transaction.Accounts = db.Accounts.Include(p => p.Owner);
+
+            return View(transaction);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Transaction([Bind(Include = "From_Id,To_Id,Amount")] TransactionViewModel transaction)
+        {
+            if (ModelState.IsValid)
+            {
+                var payor = await db.Accounts.FindAsync(transaction.From_Id);
+                if (payor == null)
+                    new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                var payee = await db.Accounts.FindAsync(transaction.To_Id);
+                if (payor == null)
+                    new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                payor.TransferTo(payee, transaction.Amount);
+
+                // Transactions are not persisted? Both models tracked by Entity Framework.
+                // Setting EntityState as Modified does not help.
+
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(transaction);
         }
     }
 }
